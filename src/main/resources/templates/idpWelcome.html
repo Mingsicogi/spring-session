@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+    <h1 th:text="${username} + ' Welcome IDP Login'"></h1>
+    <h1 th:text="${idpType} + ' IDP Email : ' + ${idpId}"></h1>
+    <a type="button" th:text="Logout" href="/logout"></a>
+</body>
+</html>

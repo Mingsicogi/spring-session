@@ -23,7 +23,7 @@ import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final SpringSessionBackedSessionRegistry<? extends Session> springSessionBackedSessionRegistry;
-
+    private final GoogleOAuth2SuccessHandler googleOAuth2SuccessHandler;
 
     /**
      * test계정 설정
@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * @throws Exception e
      */
     @Override
-    public void configure(@Qualifier("CustomAuthenticationManagerBuilder") AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("codedoctor119@gmail.com")
                 .password(this.passwordEncoder().encode("123"))
@@ -56,8 +56,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().defaultSuccessUrl("/welcome");
 
         http.oauth2Login()
-//                .successHandler()
-                .defaultSuccessUrl("/welcome")
+//                .successHandler(googleOAuth2SuccessHandler)
+            .defaultSuccessUrl("/idpWelcome")
 
         ;
 
