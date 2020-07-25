@@ -8,15 +8,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Spring Security 관련 설정
+ *
+ * @author minssogi
+ */
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
 
     /**
      * test계정 설정
      *
-     * @param auth
-     * @throws Exception
+     * @param auth AuthenticationManagerBuilder
+     * @throws Exception e
      */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -25,6 +29,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
+    /**
+     * spring security config
+     *
+     * @param http HttpSecurity
+     * @throws Exception e
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
