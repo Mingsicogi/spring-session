@@ -46,7 +46,11 @@ public class Welcome {
     public ResponseEntity<Object> getSessionInfoDetails(String username, HttpServletRequest request) {
         Map<String, ? extends Session> sessionInfo = redisIndexedSessionRepository.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, username);
         Session session = sessionInfo.get(request.getSession().getId());
-        SessionAdditionalInfo addInfo = objectMapper.convertValue(session.getAttribute("addInfo"), SessionAdditionalInfo.class);
+
+        SessionAdditionalInfo addInfo = null;
+        if(session != null)
+            addInfo = objectMapper.convertValue(session.getAttribute("addInfo"), SessionAdditionalInfo.class);
+
         return ResponseEntity.ok(addInfo);
     }
 

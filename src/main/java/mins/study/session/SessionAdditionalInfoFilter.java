@@ -2,6 +2,8 @@ package mins.study.session;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -12,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@Component
-@RequiredArgsConstructor
 public class SessionAdditionalInfoFilter extends OncePerRequestFilter {
 
     @Override

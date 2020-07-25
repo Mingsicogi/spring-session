@@ -8,3 +8,10 @@ spring:
         max-active: 5
         min-idle: 1
         max-wait: 1S
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 170454059276-a2rl8psp74d51it22b53sajptei9od31.apps.googleusercontent.com
+            client-secret: _Tx8pJLqBsWmP-mFEJPtNgKN
