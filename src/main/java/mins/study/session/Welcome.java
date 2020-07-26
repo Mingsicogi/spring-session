@@ -47,7 +47,7 @@ public class Welcome {
     @RequestMapping("/idpWelcome")
     public String idpWelcome(Model model, OAuth2AuthenticationToken authentication) {
         SecurityContext context = SecurityContextHolder.getContext();
-        DefaultOidcUser principal = (DefaultOidcUser) context.getAuthentication().getPrincipal();
+        CustomOidcUser principal = (CustomOidcUser) context.getAuthentication().getPrincipal();
 
         String username = idpRepository.get(principal.getEmail());
         model.addAttribute("username", username);

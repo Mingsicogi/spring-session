@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("codedoctor119@gmail.com")
+                .withUser("minssogi")
                 .password(this.passwordEncoder().encode("123"))
                 .roles("ADMIN")
 
@@ -57,15 +57,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.oauth2Login()
 //                .successHandler(googleOAuth2SuccessHandler)
-            .defaultSuccessUrl("/idpWelcome")
+                .defaultSuccessUrl("/idpWelcome")
 
         ;
 
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // 세션이 필요하면 생성하도록 셋팅
                 .maximumSessions(1)
-                    .maxSessionsPreventsLogin(false)
-                    .sessionRegistry(springSessionBackedSessionRegistry); // username 기준으로 사용할 수 있는 session 갯수
+                .maxSessionsPreventsLogin(false)
+                .sessionRegistry(springSessionBackedSessionRegistry); // username 기준으로 사용할 수 있는 session 갯수
 
         http.authorizeRequests().anyRequest().authenticated(); // 나머지 페이지는 로그인 후 이용 가능
     }
