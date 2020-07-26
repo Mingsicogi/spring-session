@@ -29,22 +29,13 @@ public class GoogleOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     @PostConstruct
     public void init() {
-        idpRepository.put("codedoctor119@gmail.com", "minssogi");
+        idpRepository.put("109791994201269222001", "minssogi");
     }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        UserDetails userDetails = null;
-        try {
-            DefaultOidcUser user = (DefaultOidcUser)authentication.getPrincipal();
-            String usernameInSpringSecurity = idpRepository.get(user.getUserInfo().getEmail());
-            userDetails = auth.inMemoryAuthentication().getUserDetailsService().loadUserByUsername(usernameInSpringSecurity);
 
-            log.info("############ {}, login by google idp service", userDetails.getUsername());
-        }catch (Exception e) {
-            log.error("ERROR!! Cannot get inMemoryAuthentication repository!!");
-            return;
-        }
+        response.sendRedirect("/idpWelcome");
     }
 
 }
