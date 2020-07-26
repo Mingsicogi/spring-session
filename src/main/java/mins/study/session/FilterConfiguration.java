@@ -18,7 +18,7 @@ public class FilterConfiguration extends SpringBootServletInitializer {
 
     private final SpringSessionBackedSessionRegistry<? extends Session> springSessionBackedSessionRegistry;
 
-    @Bean
+//    @Bean
     public FilterRegistrationBean<SessionAdditionalInfoFilter> sessionAdditionalInfoFilterFilterRegistrationBean() {
         FilterRegistrationBean<SessionAdditionalInfoFilter> filter = new FilterRegistrationBean<>();
         filter.addUrlPatterns("/session/*");
@@ -28,7 +28,7 @@ public class FilterConfiguration extends SpringBootServletInitializer {
         return filter;
     }
 
-    @Bean
+//    @Bean
     public FilterRegistrationBean<SessionManagementFilter> sessionManagementFilterFilterRegistrationBean() {
         FilterRegistrationBean<SessionManagementFilter> filter = new FilterRegistrationBean<>();
         filter.addUrlPatterns("/session/*");
