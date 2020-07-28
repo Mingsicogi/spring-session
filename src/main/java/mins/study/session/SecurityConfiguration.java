@@ -1,7 +1,8 @@
 package mins.study.session;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,8 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.session.Session;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Spring Security 관련 설정
@@ -73,5 +80,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties) {
+        List<ClientRegistration> clientRegistrations = new ArrayList<>();
+
+        for(OAuth2Provider provider : OAuth2Provider.values()) {
+            String registrationId = StringUtils.lowerCase(provider.name());
+            OAuth2ClientProperties.Registration registration = oAuth2ClientProperties.getRegistration().get(registrationId);
+            if(registration != null) {
+                ClientRegistration clientRegistration = provider.getBuilder(registrationId)
+                        .clientId(registration.getClientId()).clientSecret(registration.getClientSecret()).build();
+                clientRegistrations.add(clientRegistration);
+            }
+        }
+
+        return new InMemoryClientRegistrationRepository(clientRegistrations);
     }
 }
