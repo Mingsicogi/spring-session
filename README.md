@@ -7,3 +7,4 @@
     3. Spring Session
     4. Spring data(Redis)
     5. Redis 5.0.5
+    6. 
